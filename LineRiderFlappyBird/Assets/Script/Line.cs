@@ -7,7 +7,7 @@ public class Line : MonoBehaviour {
     public LineRenderer lineRenderer;
     public EdgeCollider2D edgeCollider;
 
-    List<Vector2> points;
+     List<Vector2> points;
 
     public void UpdateLine(Vector2 mousePosition)
     {
@@ -33,7 +33,22 @@ public class Line : MonoBehaviour {
         edgeCollider.points = points.ToArray();
     }
 
-
+    public bool PossitiveDerivate()
+    {
+        return points[0].x <= points.Last().x;
+    }
    
+    public bool TooSmall()
+    {
+
+        foreach (Vector2 v in points)
+        {
+            if(Vector2.Distance(points[0], v) >= 0.1f)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
