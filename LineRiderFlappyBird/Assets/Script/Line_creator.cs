@@ -9,6 +9,8 @@ public class Line_creator : MonoBehaviour {
     public GameObject glidelinePrefab;
     public GameObject bouncylinePrefab;
 
+    public ParticleSystem create_line_effect;
+
     GameObject lineGO;
     Line activeLine;
     LINE_ENUM line_sort = LINE_ENUM.SPEED;
@@ -34,6 +36,7 @@ public class Line_creator : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             
+
             switch (line_sort)
             {
                 case LINE_ENUM.SPEED:
@@ -45,8 +48,8 @@ public class Line_creator : MonoBehaviour {
                 case LINE_ENUM.GLIDE:
                     lineGO = Instantiate(glidelinePrefab);
                     break;
-                
             }
+
 
             activeLine = lineGO.GetComponent<Line>();
             lineGO.transform.SetParent(Parent);
@@ -54,7 +57,11 @@ public class Line_creator : MonoBehaviour {
 
         if (Input.GetMouseButtonUp(0))
         {
-           
+            if (create_line_effect != null)
+            {
+                create_line_effect.Stop();
+            }
+
             if (activeLine != null)
             {
                 if (activeLine.TooSmall())
@@ -72,6 +79,12 @@ public class Line_creator : MonoBehaviour {
         if(activeLine != null)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if(create_line_effect != null) {
+                create_line_effect.Play();
+                create_line_effect.transform.position = mousePos;
+            }
+
             activeLine.UpdateLine(mousePos);
 
             // direct the speed depending on direction

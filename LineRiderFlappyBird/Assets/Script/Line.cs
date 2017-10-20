@@ -43,6 +43,7 @@ public class Line : MonoBehaviour {
 
         foreach (Vector2 v in points)
         {
+            if(v != null)
             if(Vector2.Distance(points[0], v) >= 0.1f)
             {
                 return false;
