@@ -40,14 +40,15 @@ public class Line : MonoBehaviour {
    
     public bool TooSmall()
     {
-
+        if(points != null) {
         foreach (Vector2 v in points)
         {
-            if(v != null)
+           
             if(Vector2.Distance(points[0], v) >= 0.1f)
             {
                 return false;
             }
+        }
         }
         return true;
     }

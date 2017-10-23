@@ -5,24 +5,29 @@ using UnityEngine.UI;
 
 public class follow_player : MonoBehaviour {
 
+
     private Player player;
+    private Game_Controller gc;
     private Vector3 startpos;
-    public Text path_text;
 
-
-    void Start () {
+     void Start()
+    {
         player = FindObjectOfType<Player>();
+        gc = FindObjectOfType<Game_Controller>();
         startpos = transform.position;
     }
-	
-	
-	void Update () {
+
+    private void Update()
+    {
+        if (!gc.gameOver)
+        {
         transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-        path_text.text = Mathf.Round(player.transform.position.x + Time.deltaTime).ToString();
+        }
     }
+
 
     public void reset()
     {
-        gameObject.transform.position = startpos;
+        transform.position = startpos;
     }
 }

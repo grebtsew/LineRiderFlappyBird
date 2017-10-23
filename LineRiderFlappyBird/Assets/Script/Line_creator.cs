@@ -9,6 +9,8 @@ public class Line_creator : MonoBehaviour {
     public GameObject glidelinePrefab;
     public GameObject bouncylinePrefab;
 
+    public float line_fuel = 100;
+
     public ParticleSystem create_line_effect;
 
     GameObject lineGO;
@@ -35,7 +37,11 @@ public class Line_creator : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            
+            if (create_line_effect != null)
+            {
+                create_line_effect.Play();
+               
+            }
 
             switch (line_sort)
             {
@@ -79,9 +85,8 @@ public class Line_creator : MonoBehaviour {
         if(activeLine != null)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            if(create_line_effect != null) {
-                create_line_effect.Play();
+            if (create_line_effect != null)
+            {
                 create_line_effect.transform.position = mousePos;
             }
 
