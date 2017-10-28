@@ -8,13 +8,16 @@ public class Player : MonoBehaviour {
     private Vector2 startpos;
     private follow_player camera;
     private Game_Controller gc;
+    private Line_creator line_Creator;
+
+    private float rot_speed_amplify = 100;
 
     void Start()
     {
         gc = FindObjectOfType<Game_Controller>();
         camera = FindObjectOfType<follow_player>();
         startpos = gameObject.transform.position;
-  
+        line_Creator = FindObjectOfType<Line_creator>();
     }
 
     public void initiate()
@@ -31,28 +34,41 @@ public class Player : MonoBehaviour {
 
 
     void Update () {
-    
 
-        if(gameObject.transform.position.y < -20)
+
+        if(rb.bodyType != RigidbodyType2D.Static) {
+        // rotate
+        rb.MoveRotation(rb.rotation + rot_speed_amplify * rb.velocity.x*Time.fixedDeltaTime);
+
+        // dead
+        if (gameObject.transform.position.y < -20)
         {
             died();
         }
-	}
+
+        }
+
+    }
 
     private void died()
     {
         gc.GameOver();
         reset_Player();
+        line_Creator.Reset();
     }
 
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-       
+
+      
         if (collision.collider.tag == "Gate")
         {
-            Destroy(collision.gameObject);
             died();
+            Destroy(collision.gameObject);
         }
+
+       
+        
     }
 }

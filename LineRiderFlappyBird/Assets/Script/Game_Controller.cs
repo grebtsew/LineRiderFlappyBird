@@ -13,12 +13,14 @@ public class Game_Controller : MonoBehaviour {
     private GateSpawner gs;
     public Text path_text;
     private Game_Controller gc;
-
     private float time_value;
-   
+
+    public Canvas meny;
+
 
      void Start()
     {
+        
         gs = FindObjectOfType<GateSpawner>();
         player = FindObjectOfType<Player>();
       
@@ -33,13 +35,21 @@ public class Game_Controller : MonoBehaviour {
         score_text.text = score.ToString();
     }
 
+    public void start_pressed()
+    {
+        if (gameOver) { 
+        StartGame();
+        player.initiate();
+        meny.enabled = false;
+        }
+    }
+
 
     void Update()
     {
         if (Input.GetButtonDown("Start"))
         {
-            StartGame();
-            player.initiate();
+            start_pressed();
         }
 
         if (!gameOver) { 
@@ -54,6 +64,7 @@ public class Game_Controller : MonoBehaviour {
     public void GameOver()
     {
         gameOver = true;
+        meny.enabled = true;
     }
 
     public void AddScore()

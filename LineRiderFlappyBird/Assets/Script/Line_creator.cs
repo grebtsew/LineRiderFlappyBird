@@ -8,6 +8,9 @@ public class Line_creator : MonoBehaviour {
     public GameObject speedlinePrefab;
     public GameObject glidelinePrefab;
     public GameObject bouncylinePrefab;
+    private Game_Controller gc;
+
+    public float Minimum_Line_length = 1f;
 
     public float line_fuel = 100;
 
@@ -19,6 +22,27 @@ public class Line_creator : MonoBehaviour {
    
     List<GameObject> line_list = new List<GameObject>();
 
+    private void Start()
+    {
+        gc = GetComponent<Game_Controller>();
+    }
+
+    public void Reset()
+    {
+        // reset current
+        _mouseUp();
+
+        // remove all lines
+        foreach (Line l in FindObjectsOfType<Line>())
+        {
+            Destroy(l.gameObject);
+        }
+           
+        // clear line_list
+        line_list.Clear();
+        
+    }
+
     public void Undo()
     {
        
@@ -28,58 +52,74 @@ public class Line_creator : MonoBehaviour {
         }
     }
 
+ 
+
     public void SetLine(LINE_ENUM line)
     {
+        if(line_sort != line)
         line_sort = line;
     }
 
-	void Update () {
+    private void _mouseDown()
+    {
+        if (create_line_effect != null)
+        {
+            create_line_effect.Play();
+
+        }
+
+        switch (line_sort)
+        {
+            case LINE_ENUM.SPEED:
+                lineGO = Instantiate(speedlinePrefab);
+                break;
+            case LINE_ENUM.BOUNCY:
+                lineGO = Instantiate(bouncylinePrefab);
+                break;
+            case LINE_ENUM.GLIDE:
+                lineGO = Instantiate(glidelinePrefab);
+                break;
+        }
+
+
+        activeLine = lineGO.GetComponent<Line>();
+        lineGO.transform.SetParent(Parent);
+    }
+
+    private void _mouseUp()
+    {
+        if (create_line_effect != null)
+        {
+            create_line_effect.Stop();
+        }
+
+        if (activeLine != null)
+        {
+            if (activeLine.TooSmall(1f))
+            {
+                Destroy(activeLine.gameObject);
+            }
+            else
+            {
+                line_list.Add(activeLine.gameObject);
+            }
+        }
+        activeLine = null;
+    }
+
+    void Update () {
+
+        if (!gc.gameOver) {
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (create_line_effect != null)
-            {
-                create_line_effect.Play();
-               
-            }
-
-            switch (line_sort)
-            {
-                case LINE_ENUM.SPEED:
-                    lineGO = Instantiate(speedlinePrefab);
-                    break;
-                case LINE_ENUM.BOUNCY:
-                    lineGO = Instantiate(bouncylinePrefab);
-                    break;
-                case LINE_ENUM.GLIDE:
-                    lineGO = Instantiate(glidelinePrefab);
-                    break;
-            }
-
-
-            activeLine = lineGO.GetComponent<Line>();
-            lineGO.transform.SetParent(Parent);
+            _mouseDown();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (create_line_effect != null)
-            {
-                create_line_effect.Stop();
-            }
-
-            if (activeLine != null)
-            {
-                if (activeLine.TooSmall())
-                {
-                    Destroy(activeLine);
-                } else
-                {
-                    line_list.Add(activeLine.gameObject);
-                }
-            }
-                activeLine = null;
-            }
+            _mouseUp();
+        }
 
 
         if(activeLine != null)
@@ -95,7 +135,7 @@ public class Line_creator : MonoBehaviour {
             // direct the speed depending on direction
             if (activeLine.GetComponent<SurfaceEffector2D>() != null)
             {
-                if (!activeLine.PossitiveDerivate())
+                if (!activeLine.PositiveDerivate())
                 {
                         activeLine.GetComponent<SurfaceEffector2D>().speed = -Mathf.Abs(activeLine.GetComponent<SurfaceEffector2D>().speed);
                 } else
@@ -105,5 +145,6 @@ public class Line_creator : MonoBehaviour {
             }
 
         }
-	}
+        }
+    }
 }

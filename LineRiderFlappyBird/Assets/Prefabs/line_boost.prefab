@@ -58,8 +58,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
+  - {x: -0.100000024, y: 0}
+  - {x: 1.1, y: 0}
 --- !u!114 &114420822854574382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,7 +86,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 146cfbdf47bc9fa43b1116e028b980e9, type: 2}
+  - {fileID: 2100000, guid: 9276f5f7a35b168429493e26249fbd08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,7 +115,7 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
-        time: 0.025316238
+        time: 0
         value: 0.9999981
         inSlope: 0
         outSlope: 0

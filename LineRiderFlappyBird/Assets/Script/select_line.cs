@@ -15,6 +15,7 @@ public class select_line : MonoBehaviour {
 
     public void Clicked()
     {
+  
         creator.SetLine(line);
     }
 
