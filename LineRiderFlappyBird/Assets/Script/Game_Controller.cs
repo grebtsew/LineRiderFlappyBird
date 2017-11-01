@@ -65,6 +65,7 @@ public class Game_Controller : MonoBehaviour {
     {
         gameOver = true;
         meny.enabled = true;
+        
     }
 
     public void AddScore()
