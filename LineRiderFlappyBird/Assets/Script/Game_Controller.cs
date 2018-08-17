@@ -14,6 +14,7 @@ public class Game_Controller : MonoBehaviour {
     public Text path_text;
     private Game_Controller gc;
     private float time_value;
+    public Text best;
 
     public Canvas meny;
 
@@ -65,7 +66,12 @@ public class Game_Controller : MonoBehaviour {
     {
         gameOver = true;
         meny.enabled = true;
+
+        // Add best score
         
+        if(int.Parse(path_text.text) > int.Parse( best.text)){
+            best.text = path_text.text;
+        }
     }
 
     public void AddScore()
