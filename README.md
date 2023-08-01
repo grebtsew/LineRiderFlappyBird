@@ -1,12 +1,12 @@
 # LineRiderFlappyBird
 
-A mashup of the old classics, Line Rider and Flappy Bird, the game is playable on Android, Windows and Linux! See Release for downloadable executables.
+A mashup of the old classics, Line Rider and Flappy Bird. Draw lines to move the wheel through as many gates as possible. The game is playable on Android, Windows and Linux! See Release for downloadable executables.
 
 ![license](https://img.shields.io/github/license/grebtsew/LineRiderFlappyBird)
 ![size](https://img.shields.io/github/repo-size/grebtsew/LineRiderFlappyBird)
 ![commit](https://img.shields.io/github/last-commit/grebtsew/LineRiderFlappyBird)
 
-![Demo](demo.png)
+![Demo](demo.gif)
 
 # How to Run
 
